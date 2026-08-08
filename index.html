@@ -845,20 +845,26 @@
     h1 {
       position: relative;
       display: inline-block;
-      color: #fff8eb;
+      overflow: visible;
+      color: transparent;
       padding: 0.08em 0 0.12em;
       line-height: 1.02;
       background:
-        linear-gradient(100deg, #fff8eb 0%, #fff8eb 34%, #f7d98b 46%, #ffffff 50%, #f7d98b 54%, #fff8eb 66%, #fff8eb 100%);
-      background-size: 320% 100%;
+        linear-gradient(104deg, transparent 0%, transparent 39%, rgba(218, 174, 83, 0.12) 44%, rgba(255, 239, 185, 0.48) 48%, #ffffff 50%, rgba(255, 226, 150, 0.5) 52%, rgba(218, 174, 83, 0.14) 57%, transparent 62%, transparent 100%),
+        linear-gradient(180deg, #fffaf0 0%, #eee4d2 58%, #fff6e8 100%);
+      background-size: 250% 100%, 100% 100%;
+      background-position: 135% 0, 0 0;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: title-shine 10.5s ease-in-out infinite;
+      animation: title-light-sweep 9.6s linear infinite;
     }
-    @keyframes title-shine {
-      0%, 68%, 100% { background-position: 140% 0; }
-      84% { background-position: -45% 0; }
+    h1::after {
+      content: none;
+    }
+    @keyframes title-light-sweep {
+      0% { background-position: 135% 0, 0 0; }
+      100% { background-position: -135% 0, 0 0; }
     }
     .quick-actions {
       margin-top: 34px;
@@ -873,6 +879,27 @@
     }
     .social-section .eyebrow {
       justify-content: center;
+    }
+    .eyebrow {
+      justify-content: center !important;
+      text-align: center !important;
+      width: 100%;
+    }
+    .eyebrow::before {
+      display: none !important;
+    }
+    .brand-logo img {
+      max-height: clamp(60px, 15vw, 84px) !important;
+    }
+    @media (max-width: 719px) {
+      .brand-logo img {
+        max-height: 58px !important;
+      }
+    }
+    @media (max-width: 359px) {
+      .brand-logo img {
+        max-height: 52px !important;
+      }
     }
     @keyframes stage-light {
       0%, 100% { opacity: 0.3; transform: translateY(-12px) scale(0.98); }
@@ -996,8 +1023,58 @@
       display: none !important;
     }
     @media (prefers-reduced-motion: reduce) {
-      .hero::before {
+      .hero::before,
+      h1::after {
         animation: none;
+      }
+    }
+
+    /* Ajuste de respiro apos remocao de frases do topo. */
+    .hero {
+      min-height: 360px !important;
+      padding-bottom: 24px !important;
+    }
+    .hero-copy {
+      margin-top: clamp(14px, 4.4vw, 30px) !important;
+    }
+    h1 {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .typing-line:empty,
+    .kicker:empty {
+      display: none !important;
+    }
+    .typing-line {
+      display: none !important;
+    }
+    .hero-copy:not(:has(.typing-line:not(:empty))) {
+      margin-bottom: 0 !important;
+    }
+    .quick-actions {
+      margin-top: clamp(18px, 5vw, 28px) !important;
+    }
+    .budget-section {
+      padding-top: clamp(18px, 4.8vw, 30px) !important;
+    }
+    .budget-section .section-heading {
+      margin-bottom: 12px !important;
+    }
+    @media (max-width: 719px) {
+      .hero {
+        min-height: 340px !important;
+      }
+      .brand-panel {
+        min-height: 64px;
+      }
+      .hero-copy {
+        margin-top: 10px !important;
+      }
+      .quick-actions {
+        margin-top: 20px !important;
+      }
+      .budget-section {
+        padding-top: 20px !important;
       }
     }
 
@@ -1029,12 +1106,8 @@
       </div>
 
       <div class="hero-copy">
-        <p class="kicker">Fotógrafo profissional em Pirapora-MG</p>
-        <h1 id="main-title">Godoi Fotografias</h1>
+        <h1 id="main-title" data-text="Godoi Fotografias">Godoi Fotografias</h1>
         <p class="typing-line" id="typing-line" aria-live="polite">
-          <span>Registrando histórias em</span>
-          <span class="typing-word-wrap"><span id="typing-word">casamentos</span><span class="typing-cursor" aria-hidden="true"></span></span>
-        </p>
       </div>
 
       <nav class="quick-actions" aria-label="Ações rápidas">
@@ -1057,7 +1130,6 @@
       <section class="section budget-section" aria-labelledby="budget-title">
         <div class="section-heading">
           <p class="eyebrow">Atendimento direcionado</p>
-          <h2 class="section-title" id="budget-title">Qual história vamos registrar?</h2>
         </div>
 
         <div class="action-stack">
